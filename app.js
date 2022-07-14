@@ -7,6 +7,7 @@ const saveBtn = document.getElementById("jsSave");
 const destroyBtn = document.getElementById("destroy-btn");
 const eraserBtn = document.getElementById("eraser-btn");
 const fileInput = document.getElementById("file");
+const textInput = document.getElementById("text");
 
 const INITIAL_COLOR = "#2c2c2c";
 const CANVAS_SIZE = 700;
@@ -114,8 +115,18 @@ function onFileChange(event) {
     fileInput.value = "";
   };
 }
-
+function onDoubleClick(event) {
+  if (text !== "") {
+    ctx.save();
+    const text = textInput.value;
+    ctx.lineWidth = 1;
+    ctx.font = "68px serif";
+    ctx.strokeText(text, event.offsetX, event.offsetY);
+    ctx.restore();
+  }
+}
 if (canvas) {
+  canvas.addEventListener("dblclick", onDoubleClick);
   canvas.addEventListener("mousemove", onMouseMove);
   canvas.addEventListener("mousedown", startPainting);
   canvas.addEventListener("mouseup", stopPainting);
